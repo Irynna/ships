@@ -1,0 +1,93 @@
+<HTML> 
+<head> 
+<meta charset = "UTF-8"/> 
+</head> 
+<body> 
+<script> 
+var flot = [];
+flot[0] = { 
+    name: 'linkor',
+    hp: 1000, 
+    energy:1000 
+};
+flot [1] ={
+    name:'galeon',
+    hp: 4000, 
+    energy:2000 };
+flot [2] ={
+    name: 'betaleon',
+    hp: 500, 
+    energy:1000, };
+flot [3] ={
+    name:'gamaleon',
+    hp: 6000, 
+    energy:2000 };
+flot [4] ={
+    name:'omegaleon',
+    hp: 700, 
+    energy:1000 
+};
+
+ 
+               // MADE WITH <3 AND JAVASCRIPT
+ 
+                    
+var Team1 =[];
+var Team2=[];
+function clone(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+ 
+    var temp = obj.constructor(); // give temp the original obj's constructor
+    for (var key in obj) {
+        temp[key] = clone(obj[key]);
+    }
+ 
+    return temp;
+}
+for (var i = 0; i < 11; i++){
+
+var t = flot[Math.floor(Math.random()*5)];
+    var j = flot[Math.floor(Math.random()*5)];
+    
+  Team1[i]= clone(t);
+    Team2[i]= clone(j);
+};
+    
+var SumHp1= true;
+var SumHp2= true;
+var canShoot = true;
+while (SumHp1 && SumHp2 && canShoot){
+var Strelky1 = Team1.filter(function(el){return (el.hp>0 && el.energy>=100)});
+if (Strelky1.length>0){
+var Mishen1 = Team2.filter(function(el){return el.hp>0});
+var x =Math.floor(Math.random()*Strelky1.length);
+   var y = Math.floor(Math.random()*Mishen1.length); 
+    vystrel(Mishen1[y], Strelky1[x]);
+};
+var Strelky2 = Team2.filter(function(el){return (el.hp>0 && el.energy>=100)});
+if (Strelky2.length>0){
+var Mishen2 = Team1.filter(function(el){return el.hp>0});
+    var a = Math.floor(Math.random()*Strelky2.length);
+    var b = Math.floor(Math.random()*Mishen2.length);
+    vystrel(Mishen2[b], Strelky2[a]);
+    //console.log(Mishen1);
+};
+    
+   
+SumHp1= Team1.map(function(el){return (el.hp>0)}).reduce(function(hp1, hp2){return(hp1||hp2)},false);
+SumHp2= Team2.map(function(el){return el.hp>0}).reduce(function(hp1, hp2){return(hp1||hp2)},false);
+canShoot = Team1.concat(Team2).map(function(el){return (el.hp>0 && el.energy>100)}).reduce(function(el1, el2){return (el1||el2)}, false);
+
+};
+function vystrel (obj1, obj2){
+this.obj1 = obj1  ;
+this.obj2 = obj2  ;
+this.obj1.hp = (this.obj1.hp -100 + Math.round(Math.random()*20-10));
+this.obj2.energy = (this.obj2.energy - 100)};
+    console.log(Team1);
+    console.log(Team2);
+</script> 
+</body> 
+</HTML>
